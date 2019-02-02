@@ -1,1 +1,64 @@
-This is a test to see if github pages works
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="stopwatch.js"></script>
+    <style>
+        @font-face {
+            font-family: "Px437 IBM BIOS";
+            src: url("./Fonts/Px437_IBM_BIOS.ttf")
+        }
+
+        body {
+            background: #282828;
+            color: #33FF33;
+            font-family: "Px437 IBM BIOS";
+            font-size: 30px;
+        }
+
+        button {
+
+            background: #282828;
+            color: #33FF33;
+            border-color: #33FF33;
+            border-style: dashed;
+            font-family: "Px437 IBM BIOS";
+            font-size: 20px;
+            padding: 10px;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var start = new Date();
+        var wms = 0;
+        var dms = 0;
+
+    </script>
+    <table>
+        <tr>
+            <td>
+                Working: <span id="working"></span>
+            </td>
+            <td>
+                Distracted: <span id="distracted"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button onclick="test()">Flip</button>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
