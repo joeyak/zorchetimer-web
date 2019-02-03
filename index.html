@@ -2,7 +2,32 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <script src="wasm_exec.js"></script>
+    <script>
+        const go = new Go();
+        let mod, inst;
+        WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+            mod = result.module
+            inst = result.instance
+            go.run(result.instance);
+        });
+
+        function disableButtons(disableStart) {
+            let startb = document.getElementById("startbutton")
+            let flipb = document.getElementById("flipbutton")
+            let stopb = document.getElementById("stopbutton")
+            if (disableStart) {
+                startb.disabled = true;
+                flipb.disabled = false;
+                stopb.disabled = false;
+            } else {
+                startb.disabled = false;
+                flipb.disabled = true;
+                stopb.disabled = true;
+            }
+        }
+    </script>
     <style>
         @font-face {
             font-family: "Px437 IBM BIOS";
@@ -17,7 +42,6 @@
         }
 
         button {
-
             background: #282828;
             color: #33FF33;
             border-color: #33FF33;
@@ -25,8 +49,11 @@
             font-family: "Px437 IBM BIOS";
             font-size: 20px;
             padding: 10px;
-            margin: 0 auto;
-            display: block;
+        }
+
+        button:disabled {
+            color: #1B871B;
+            border-color: #1B871B;
         }
     </style>
 </head>
@@ -35,20 +62,27 @@
     <table>
         <tr>
             <td>
-                Working: <span id="working"></span>
+                Working:
             </td>
             <td>
-                Distracted: <span id="distracted"></span>
+                <span id="working">00:00:00</span>
             </td>
         </tr>
         <tr>
             <td>
-                <br />
+                Distracted:
+            </td>
+            <td>
+                <span id="distracted">00:00:00</span>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-                <button onclick="test()">Flip</button>
+                <span class="mid">
+                    <button id="startbutton" onclick="start()">Start</button>
+                    <button id="flipbutton" onclick="flip()" disabled>Flip</button>
+                    <button id="stopbutton" onclick="stop()" disabled>Stop</button>
+                </span>
             </td>
         </tr>
     </table>
